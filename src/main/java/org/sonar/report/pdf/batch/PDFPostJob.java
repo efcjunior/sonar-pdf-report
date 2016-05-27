@@ -79,7 +79,8 @@ public class PDFPostJob implements PostJob, CheckProject {
 
     File pdf = new File(path);
     if (pdf.exists()) {
-      FileUploader.upload(pdf, sonarHostUrl + "/pdf_report/store", username, password);
+      String uploadDirectory = sonarHostUrl.endsWith("/") ? "pdf_report/store" : "/pdf_report/store";
+      FileUploader.upload(pdf, sonarHostUrl + uploadDirectory, username, password);
     } else {
       LOG.error("PDF file not found in local filesystem. Report could not be sent to server.");
     }
